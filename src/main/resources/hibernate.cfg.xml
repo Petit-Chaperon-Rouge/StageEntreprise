@@ -13,11 +13,13 @@
         <!--On montre les requests SQL -> NE PAS ACTIVER EN PROD -->
         <property name="show_sql">true</property>
 
-        <!--
-        <mapping class="org.formhib.models.Book"/>
-        <mapping class="org.formhib.models.Category"/>
-        <mapping class="org.formhib.models.Tags"/>
-        -->
+
+        <mapping class="org.stageentrp.models.Convention"/>
+        <mapping class="org.stageentrp.models.Enseignant"/>
+        <mapping class="org.stageentrp.models.Entreprise"/>
+        <mapping class="org.stageentrp.models.Etudiant"/>
+        <mapping class="org.stageentrp.models.EtudiantContactEntreprise"/>
+        <mapping class="org.stageentrp.models.PropositionStage"/>
 
     </session-factory>
 </hibernate-configuration>
