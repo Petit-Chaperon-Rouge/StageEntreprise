@@ -1,14 +1,12 @@
 package org.stageentrp.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Table(name = "convention")
 public class Convention {
     private int id;
     private BigDecimal remunerationFinale;
@@ -16,6 +14,9 @@ public class Convention {
     private Timestamp dateDebut;
     private Timestamp dateSignature;
     private Timestamp derniereDateVisiteEnseignant;
+    private Enseignant enseignant;
+    private Etudiant etudiant;
+    private PropositionStage propositionStage;
 
     /**
      * @return the id
@@ -111,6 +112,54 @@ public class Convention {
      */
     public void setDerniereDateVisiteEnseignant(Timestamp derniereDateVisiteEnseignant) {
         this.derniereDateVisiteEnseignant = derniereDateVisiteEnseignant;
+    }
+
+    /**
+     * @return the enseignant
+     */
+    @ManyToOne
+    @JoinColumn(name= "enseignant_id")
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    /**
+     * @param enseignant the enseignant to set
+     */
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+
+    /**
+     * @return the etudiant
+     */
+    @ManyToOne
+    @JoinColumn(name= "etudiant_id")
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    /**
+     * @param etudiant the etudiant to set
+     */
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    /**
+     * @return the propositionStage
+     */
+    @ManyToOne
+    @JoinColumn(name= "proposition_stage_id")
+    public PropositionStage getPropositionStage() {
+        return propositionStage;
+    }
+
+    /**
+     * @param propositionStage the propositionStage to set
+     */
+    public void setPropositionStage(PropositionStage propositionStage) {
+        this.propositionStage = propositionStage;
     }
 
     @Override

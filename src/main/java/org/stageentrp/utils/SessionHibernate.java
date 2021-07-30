@@ -6,65 +6,65 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+
 import java.util.Date;
 
 public class SessionHibernate {
-    //Je place une session dans un Thread
-    public static final ThreadLocal<Session> threadSession = new ThreadLocal<Session>();
-    public static SessionFactory sessionfactory;
+    // Je place une session dans un Thread
+    public static final ThreadLocal<Session> threadSession = new ThreadLocal<>();
+    public static SessionFactory sessionFactory;
     private static StandardServiceRegistry serviceRegistry;
 
-    static{
-        try{
-            System.out.println(new Date() + " : initialisation de la session");
-            //recup la config d'hibernate dans le fichier hibernate.cfg.xml
+    static {
+        try {
+            System.out.println(new Date() + " : Initialisation de la session");
+            // Récuperer la configuration d'hibernate
+            // Dans le fichier hibernate.cfg.xml
             Configuration configuration = new Configuration().configure();
-            //On enregistre un service registry
-            //Pour gérer la conf d'hibernate par rapport à notre session
+            // On instancie un serviceRegistry
+            // Gérer la conf d'hibernate sur notre session
             serviceRegistry = new StandardServiceRegistryBuilder().configure().build();
-            //On instancie notre session factory
-            //Pour créer des sessions
-            sessionfactory = configuration.buildSessionFactory(serviceRegistry);
-
-
-        } catch(Throwable e){
+            // On instancie notre session factory
+            // Créer des sessions
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Methode static qui permet de récupérer une session
-     * @return Session
+     * Methode Static qui permet de recuperer une session
+     * @return {Session}
      */
-    public static Session currentSession(){
-        //Je recup la session du thread en cours
+    public static Session currentSession()  {
+        // Je récupère la session du Thread en cours
         Session session = (Session) threadSession.get();
-        //Si je n'ai pas de session
-        if(session == null){
+        // Si je n'ai pas de Session
+        if (session == null) {
             System.out.println("Je n'ai pas de session active");
-            //J'ouvre une session avec mon obj sessionfactory
+            // J'ouvre une session avec mon objet SessionFactory
             System.out.println("J'ouvre une nouvelle session");
-            session = sessionfactory.openSession();
-            //Je l'injecte dans le thread en cours
-            System.out.println("J'injecte ma session dans mon thread en cours");
+            session = sessionFactory.openSession();
+            // Je l'injecte dans le Thread en cours
+            System.out.println("J'injecte ma session dans mon Thread en cours");
             threadSession.set(session);
         }
-        //Je retourne ma session
-        System.out.println("J'ai bien récuperer ma session");
+        // je retourne ma session
+        System.out.println("J'ai bien récupéré ma session");
         return session;
-
     }
 
     /**
-     * Méthode static pour fermer une session
+     * Methode static pour fermer une session
      */
-    public static void closeSession(){
-        //Je recup la session en Thread en cours
+    public static void closeSession() {
+        // Je récupère la session du Thread en cours
         Session session = (Session) threadSession.get();
-        //Si j'ai une session, je la ferme
-        if(session != null) session.close();
-        //Je set à null mon Thread en cours
+        // Si j'ai une Session, je la ferme
+        if (session != null) session.close();
+        // Je set à null mon Thread en cours
         threadSession.set(null);
         System.out.println("J'ai bien fermé ma session");
     }
+
 }

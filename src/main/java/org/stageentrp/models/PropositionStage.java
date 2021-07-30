@@ -3,6 +3,7 @@ package org.stageentrp.models;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,8 @@ public class PropositionStage {
     private Timestamp dateProposition;
     private Integer duree;
     private BigDecimal remuneration;
+    private List<Convention> conventions;
+    private Entreprise entreprise;
 
     /**
      * @return the id
@@ -92,6 +95,37 @@ public class PropositionStage {
      */
     public void setRemuneration(BigDecimal remuneration) {
         this.remuneration = remuneration;
+    }
+
+    /**
+     * @return the conventions
+     */
+    @OneToMany(mappedBy = "propositionStage", fetch = FetchType.EAGER)
+    public List<Convention> getConventions() {
+        return conventions;
+    }
+
+    /**
+     * @param conventions the conventions to set
+     */
+    public void setConventions(List<Convention> conventions) {
+        this.conventions = conventions;
+    }
+
+    /**
+     * @return the entreprise
+     */
+    @ManyToOne
+    @JoinColumn(name= "entreprise_id")
+    public Entreprise getEntreprise() {
+        return entreprise;
+    }
+
+    /**
+     * @param entreprise the entreprise to set
+     */
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
     }
 
     @Override

@@ -1,16 +1,16 @@
 package org.stageentrp.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "etudiant")
 public class Etudiant {
     private int id;
     private String nom;
     private String prenom;
+    private List<Convention> conventions;
 
     /**
      * @return the id
@@ -58,6 +58,21 @@ public class Etudiant {
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    /**
+     * @return the conventions
+     */
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
+    public List<Convention> getConventions() {
+        return conventions;
+    }
+
+    /**
+     * @param conventions the conventions to set
+     */
+    public void setConventions(List<Convention> conventions) {
+        this.conventions = conventions;
     }
 
     @Override

@@ -1,12 +1,13 @@
 package org.stageentrp.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "etudiant_contact_entreprise", schema = "stageentreprise")
-public class EtudiantContactEntreprise {
+public class EtudiantContactEntreprise implements Serializable {
     private int etudiantId;
     private int entrepriseId;
     private Timestamp datePriseContact;

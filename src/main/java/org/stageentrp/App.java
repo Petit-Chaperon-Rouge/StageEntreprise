@@ -9,7 +9,6 @@ public class App {
 
         EtudiantRepository etudiantRepository = new EtudiantRepository();
         Etudiant etudiant = etudiantRepository.get(1, Etudiant.class);
-
         System.out.println(etudiant.getPrenom() + " " + etudiant.getNom());
     }
 

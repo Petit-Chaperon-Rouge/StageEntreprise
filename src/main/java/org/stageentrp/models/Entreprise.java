@@ -1,16 +1,16 @@
 package org.stageentrp.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "entreprise")
 public class Entreprise {
     private int id;
     private String nom;
     private String adresse;
+    private List<PropositionStage> propositionStages;
 
     /**
      * @return the id
@@ -58,6 +58,21 @@ public class Entreprise {
      */
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    /**
+     * @return the propositionStages
+     */
+    @OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
+    public List<PropositionStage> getPropositionStages() {
+        return propositionStages;
+    }
+
+    /**
+     * @param propositionStages the propositionStages to set
+     */
+    public void setPropositionStages(List<PropositionStage> propositionStages) {
+        this.propositionStages = propositionStages;
     }
 
     @Override
